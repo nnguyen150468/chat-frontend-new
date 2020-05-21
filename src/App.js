@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 import Moment from 'react-moment'
 import socket from './utils/socket'
-import {Switch, Route} from 'react-router'
+
 import Header from './components/Header'
 import Rooms from './components/Rooms'
 
-const moment = require('moment')
+
 
 function App() {
   const [chat, setChat] = useState("")
@@ -17,7 +17,6 @@ function App() {
   useEffect(()=>{
     askUser();
     chatConnection();
-    
     return () => socket.emit("disconnect")
   }, [])
 
