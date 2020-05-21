@@ -9,7 +9,6 @@ export default function Rooms(props) {
     useEffect(() => {
         socket.on("rooms", data => setRooms(data))
         socket.on("selectedRoom", data => { setSelectedRoom(data) })
-        return () => socket.emit("disconnect")
     }, [])
 
     const joinRoom = (rID) => {
@@ -24,8 +23,8 @@ export default function Rooms(props) {
     const renderRooms = () => {
         return (
             <table>
-                <thead>
-                <tr key="1" >
+                <thead >
+                <tr key="1" style={{backgroundColor: "rgb(1, 58, 51)"}}>
                     <th>Rooms</th>
                 </tr>
                 </thead>

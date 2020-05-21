@@ -54,6 +54,18 @@ td {
   width: 100vw
 }
 
+/* tr:nth-child(even) {
+  background-color: rgb(0, 77, 68);
+  color: white;
+  width: 100vw
+}
+
+tr:nth-child(odd) {
+  background-color: rgb(48, 121, 78);
+  color: white;
+  width: 100vw
+} */
+
 tr:nth-child(even) {
   background-color: rgb(0, 77, 68);
   color: white;
@@ -66,9 +78,37 @@ tr:nth-child(odd) {
   width: 100vw
 }
 
+
+
 .profile-pic {
   border-radius: 50%;
   max-width: 5vw;
+}
+
+.system-bubble {
+  margin-top: 1em;
+  padding: 0.2em;
+  position: relative;
+	background: #f9fff3;
+  border-radius: .4em;
+  color: black;
+  font-size: 0.7em;
+  padding: 0.75em;
+}
+
+.system-bubble:after {
+  content: '';
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+  border: 12px solid transparent;
+	border-bottom-color: #f9fff3;
+	border-top: 0;
+	border-left: 0;
+	margin-left: -6px;
+	margin-top: -12px;
 }
 
 .chatbox {

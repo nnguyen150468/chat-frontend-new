@@ -17,6 +17,7 @@ function App() {
   useEffect(()=>{
     askUser();
     chatConnection();
+    
     return () => socket.emit("disconnect")
   }, [])
 
@@ -78,7 +79,6 @@ function App() {
   return (
     <div className="whole-body">
 
-      
       <div className="sideBar">
       <Header user={user}/>
       <Rooms leaveRoom={leaveRoom}/>
