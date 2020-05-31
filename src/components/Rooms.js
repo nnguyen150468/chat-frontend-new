@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import socket from '../utils/socket'
 import {Link} from 'react-router-dom'
 
+
 export default function Rooms(props) {
     const [rooms, setRooms] = useState([])
     const [selectedRoom, setSelectedRoom] = useState(null)
@@ -20,7 +21,7 @@ export default function Rooms(props) {
     }
 
     const renderRooms = () => {
-        return !rooms? <div class="loader">Loading...</div> : (
+        return rooms.length===0? <div class="loader">Loading...</div> : (
             <table>
                 <thead >
                 <tr key="1" style={{backgroundColor: "rgb(1, 58, 51)"}}>
