@@ -1,18 +1,20 @@
 import React, { useEffect, useState, useRef } from 'react';
+import {Switch, Route, Link} from 'react-router-dom'
 import './App.css';
 import Moment from 'react-moment'
 import socket from './utils/socket'
-
+import BreakPage from './pages/BreakPage'
+import ChatPage from './pages/ChatPage'
 import Header from './components/Header'
 import Rooms from './components/Rooms'
 
 
-
 function App() {
-  const [chat, setChat] = useState("")
   const [user, setUser] = useState(null)
+  const [chat, setChat] = useState("")
   const [chatLog, setChatLog] = useState([])
   const chatLogRef = useRef(chatLog)
+  
 
   useEffect(()=>{
     askUser();
@@ -25,19 +27,13 @@ function App() {
     if(!userName) return askUser()
 
     socket.emit("login", userName, cb => {
-      // if(!cb.ok) return alert("Cannot login!")
-      // setUser(cb.data)
       setUser(cb)
-    })
-  
+    })  
   }
 
   const chatConnection = () => {
     socket.on("message", (msg)=>{
       chatLogRef.current.push(msg)
-      // if(chatLog.length>15){
-      //   chatLogRef.current = chatLogRef.current.slice(chatLogRef.current.length-15)
-      // }
       setChatLog([...chatLogRef.current])
       console.log('msg frontned',msg)
       console.log('chatLog', chatLog)
@@ -48,18 +44,25 @@ function App() {
     setChat(e.target.value)
   }
 
+
   const submitChat = (e) => {
     e.preventDefault()
-    if(user){ 
-      socket.emit("chat", {
-      name: user.name,
-      text: chat
-    }, err => {
-      if(err) return console.log(err)
-    })
+  
+    if(window.location.href.includes("chat")){
+      if(user){ 
+        socket.emit("chat", {
+        name: user.name,
+        text: chat
+      }, err => {
+        if(err) return console.log(err)
+      })}
+    } else{
+      socket.emit("remindJoinRoom", null);
+    }
+  
     setChat("")
   }
-  }
+
 
   const leaveRoom = () => {
     socket.emit("leaveRoom", null)
@@ -78,11 +81,18 @@ function App() {
   return (
     <div className="whole-body">
 
+      <Switch>
+        <Route path="/" exact chat={chat} setChat={setChat} renderChat={renderChat} chatLog={chatLog} setChatLog={setChatLog}
+      handleChange={handleChange} submitChat={submitChat} chatConnection={chatConnection} chatLogRef={chatLogRef} component={BreakPage}/>
+        <Route path="/chat" chat={chat} setChat={setChat} renderChat={renderChat} chatLog={chatLog} setChatLog={setChatLog}
+      handleChange={handleChange} submitChat={submitChat} chatConnection={chatConnection} chatLogRef={chatLogRef} exact component={ChatPage}/>
+      </Switch>
+
       <div className="sideBar">
       <Header user={user}/>
-      <Rooms leaveRoom={leaveRoom}/>
+      <Rooms leaveRoom={leaveRoom} setChatLog={setChatLog} chatLogRef={chatLogRef}/>
       <div className="leaveContainer">
-      <button className="leaveButton" onClick={leaveRoom}>Leave</button>
+      <Link to="/" style={{textDecoration:"none"}}><button className="leaveButton" onClick={leaveRoom}>Leave</button></Link>
       </div>
       </div>
 
@@ -97,7 +107,6 @@ function App() {
           <button className="chatButton" type="submit">chat</button>
         </form>
       </div>
-      
       </div>
       
     </div>
