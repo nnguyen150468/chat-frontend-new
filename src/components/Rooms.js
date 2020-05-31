@@ -20,7 +20,7 @@ export default function Rooms(props) {
     }
 
     const renderRooms = () => {
-        return (
+        return !rooms? <div class="loader">Loading...</div> : (
             <table>
                 <thead >
                 <tr key="1" style={{backgroundColor: "rgb(1, 58, 51)"}}>
