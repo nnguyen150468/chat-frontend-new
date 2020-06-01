@@ -35,8 +35,8 @@ function App() {
     socket.on("message", (msg)=>{
       chatLogRef.current.push(msg)
       setChatLog([...chatLogRef.current])
-      console.log('msg frontned',msg)
-      console.log('chatLog', chatLog)
+      // console.log('msg frontned',msg)
+      // console.log('chatLog', chatLog)
     })
   }
 
@@ -69,7 +69,7 @@ function App() {
   }
 
   const renderChat = () => {
-    console.log('chatLog createAt======', chatLog)
+    // console.log('chatLog createAt======', chatLog)
     return chatLog.map(el => <div key={el._id} className="text-row">
       <div className="text-content">
         <div className="text-name"><strong>{el.user.name===" "? " " : el.user.name} </strong></div>
