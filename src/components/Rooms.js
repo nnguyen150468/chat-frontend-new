@@ -31,7 +31,7 @@ export default function Rooms(props) {
                 <tbody>
                 {rooms.map(el => 
                 <tr key={el._id} className="tableRow" >
-                <Link style={{textDecoration: 'none', color: "white"}} to="chat"><td  onClick={() => joinRoom(el._id)}>
+                <Link style={{textDecoration: 'none', color: "white"}} to="room"><td  onClick={() => joinRoom(el._id)}>
                     {el.name}({el.members.length}) </td>
                     </Link>
                 </tr>

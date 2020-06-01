@@ -48,7 +48,7 @@ function App() {
   const submitChat = (e) => {
     e.preventDefault()
   
-    if(window.location.href.includes("chat")){
+    if(window.location.href.includes("room")){
       if(user){ 
         socket.emit("chat", {
         name: user.name,
