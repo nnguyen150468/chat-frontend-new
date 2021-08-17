@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import socket from '../utils/socket'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 export default function Rooms(props) {
@@ -21,21 +21,21 @@ export default function Rooms(props) {
     }
 
     const renderRooms = () => {
-        return rooms.length===0? <div class="loader">Loading...</div> : (
+        return rooms.length === 0 ? <div class="loader">Loading...</div> : (
             <table>
                 <thead >
-                <tr key="1" style={{backgroundColor: "rgb(1, 58, 51)"}}>
-                    <th>Rooms</th>
-                </tr>
+                    <tr key="1" style={{ backgroundColor: "rgb(1, 58, 51)" }}>
+                        <th>Rooms</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {rooms.map(el => 
-                <tr key={el._id} className="tableRow" >
-                <Link style={{textDecoration: 'none', color: "white"}} to="room"><td  onClick={() => joinRoom(el._id)}>
-                    {el.name}({el.members.length}) </td>
-                    </Link>
-                </tr>
-                )}
+                    {rooms.map(el =>
+                        <tr key={el._id} className="tableRow" >
+                            <Link style={{ textDecoration: 'none', color: "white" }} to="room"><td onClick={() => joinRoom(el._id)}>
+                                {el.name}({el.members.length}) </td>
+                            </Link>
+                        </tr>
+                    )}
                 </tbody>
             </table>)
     }
